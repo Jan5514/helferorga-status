@@ -87,7 +87,9 @@ jobs:
           gh label create ausfall -R "$GITHUB_REPOSITORY" --color B60205 \
             --description "helferorga.de/status antwortet nicht mit 200" 2>/dev/null || true
           {
-            echo "\`$ADRESSE\` antwortet mit **${CODE:-keiner Antwort}** statt 200 ($jetzt, zweimal im Abstand von 30 Sekunden gefragt)."
+            # 000 ist curls Wort für „keine Verbindung“ -- das liest niemand als Zahl
+            if [ "$CODE" = "000" ] || [ -z "$CODE" ]; then was="antwortet **gar nicht**"; else was="antwortet mit **$CODE** statt 200"; fi
+            echo "\`$ADRESSE\` $was ($jetzt, zweimal im Abstand von 30 Sekunden gefragt)."
             echo
             if [ -s antwort.txt ]; then
               echo "Was die Seite sagt (ohne Kürzel und ohne Pfade -- so ist sie gebaut):"

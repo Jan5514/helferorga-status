@@ -1,31 +1,110 @@
-# Change these first
-owner: upptime # Your GitHub organization or username, where this repository lives
-repo: upptime # The name of this repository
+# Der Wächter von außen für HelferOrga (29.09.2026).
+#
+# Geprüft wird genau eine Adresse: die Statusseite des ganzen Hauses. Sie
+# antwortet mit 200, wenn das Programm läuft und sich alle Datenbanken lesen
+# lassen, sonst mit 503 -- das Kürzel einer Organisation steht hier mit
+# Absicht nicht, denn diese Seite ist öffentlich (SERVER.md 11.6).
+owner: Jan5514
+repo: helferorga-status
 
 sites:
-  - name: Google
-    url: https://www.google.com
-  - name: Wikipedia
-    url: https://en.wikipedia.org
-  - name: Hacker News
-    url: https://news.ycombinator.com
-  - name: Secret Site
-    url: $SECRET_SITE
+  - name: HelferOrga
+    url: https://helferorga.de/status
+    expectedStatusCodes:
+      - 200
+    maxResponseTime: 10000
+
+# wer bei einem Ausfall das Issue zugewiesen bekommt -- und damit die Mail
+assignees:
+  - Jan5514
+
+# die Beschreibung des Repositorys ist von Hand geschrieben
+skipDescriptionUpdate: true
+skipTopicsUpdate: true
 
 status-website:
-  # Add your custom domain name, or remove the `cname` line if you don't have a domain
-  # Uncomment the `baseUrl` line if you don't have a custom domain and add your repo name there
-  cname: demo.upptime.js.org
-  # baseUrl: /your-repo-name
-  logoUrl: https://raw.githubusercontent.com/upptime/upptime.js.org/master/static/img/icon.svg
-  name: Upptime
-  introTitle: "**Upptime** is the open-source uptime monitor and status page, powered entirely by GitHub."
-  introMessage: This is a sample status page which uses **real-time** data from our [GitHub repository](https://github.com/upptime/upptime). No server required — just GitHub Actions, Issues, and Pages. [**Get your own for free**](https://github.com/upptime/upptime)
+  cname: status.helferorga.de
+  logoUrl: https://helferorga.de/zeichen.svg
+  faviconSvg: https://helferorga.de/zeichen.svg
+  name: HelferOrga · Status
+  theme: light
+  introTitle: "**HelferOrga** – der Stand von außen gesehen"
+  introMessage: >-
+    Diese Seite prüft alle fünf Minuten von außen, ob
+    [helferorga.de](https://helferorga.de/status) antwortet und sich alle
+    Datenbanken lesen lassen. Sie liegt bei GitHub und nicht auf dem Server
+    von HelferOrga – deshalb ist sie auch dann erreichbar, wenn der Server es
+    nicht ist. Den Stand einer einzelnen Organisation zeigt
+    `<kürzel>.helferorga.de/status`.
   navbar:
     - title: Status
       href: /
-    - title: GitHub
-      href: https://github.com/$OWNER/$REPO
+    - title: HelferOrga
+      href: https://helferorga.de
+    - title: Impressum
+      href: https://helferorga.de/impressum
+    - title: Datenschutz
+      href: https://helferorga.de/datenschutz
 
-# Upptime also supports notifications, assigning issues, and more
-# See https://upptime.js.org/docs/configuration
+i18n:
+  activeIncidents: Aktuelle Störungen
+  allSystemsOperational: Alles läuft
+  incidentReport: "Störung #$NUMBER →"
+  activeIncidentSummary: Gemeldet am $DATE, $POSTS Einträge
+  incidentTitle: Störung $NUMBER
+  incidentDetails: Einzelheiten
+  incidentFixed: Behoben
+  incidentOngoing: Andauernd
+  incidentOpenedAt: Gemeldet am
+  incidentClosedAt: Behoben am
+  incidentViewOnGitHub: Auf GitHub ansehen und verfolgen
+  incidentCommentSummary: Am $DATE von $AUTHOR
+  incidentBack: ← Zurück zu allen Störungen
+  pastIncidents: Frühere Störungen
+  pastIncidentsResolved: Nach $MINUTES Minuten behoben, $POSTS Einträge
+  liveStatus: Stand jetzt
+  overallUptime: "Verfügbarkeit: $UPTIME"
+  overallUptimeTitle: Verfügbarkeit
+  averageResponseTime: "Mittlere Antwortzeit: $TIMEms"
+  averageResponseTimeTitle: Mittlere Antwortzeit
+  sevelDayResponseTime: Antwortzeit der letzten 7 Tage
+  responseTimeMs: Antwortzeit (ms)
+  up: Läuft
+  down: Ausgefallen
+  degraded: Eingeschränkt
+  ms: ms
+  loading: Wird geladen
+  navGitHub: GitHub
+  footer: Diese Seite ist [quelloffen]($REPO) und läuft mit [Upptime](https://upptime.js.org).
+  rateLimitExceededTitle: Zu viele Abrufe
+  rateLimitExceededIntro: Diese Seite holt ihre Daten von GitHub, und GitHub erlaubt jeder Adresse nur eine begrenzte Zahl Abrufe in der Stunde. Bitte später noch einmal versuchen.
+  rateLimitExceededWhatDoesErrorMean: Was bedeutet das?
+  rateLimitExceededErrorMeaning: Die Seite fragt die GitHub-Schnittstelle nach dem aktuellen Stand. Ohne Anmeldung sind das 60 Abrufe je Stunde und Adresse, und die sind aufgebraucht.
+  rateLimitExceededErrorHowCanFix: Was hilft?
+  rateLimitExceededErrorFix: Eine Stunde warten – dann geht es wieder. Wer ein GitHub-Konto hat, kann stattdessen einen persönlichen Zugangsschlüssel eintragen.
+  rateLimitExceededGeneratePAT: So erstellt man einen Zugangsschlüssel
+  rateLimitExceededHasSet: Ein Zugangsschlüssel ist eingetragen.
+  rateLimitExceededRemoveToken: Schlüssel entfernen
+  rateLimitExceededGitHubPAT: Persönlicher Zugangsschlüssel für GitHub
+  rateLimitExceededCopyPastePAT: Schlüssel hier einfügen
+  rateLimitExceededSaveToken: Schlüssel speichern
+  errorTitle: Etwas ist schiefgegangen
+  errorIntro: Der aktuelle Stand ließ sich nicht abrufen.
+  errorText: Bitte in einem Moment noch einmal versuchen.
+  errorHome: Zur Startseite
+  pastScheduledMaintenance: Frühere Wartungen
+  scheduledMaintenance: Geplante Wartung
+  scheduledMaintenanceSummaryStarted: Begonnen am $DATE, $DURATION Minuten
+  scheduledMaintenanceSummaryStarts: Beginnt am $DATE, $DURATION Minuten
+  startedAt: Begonnen am
+  startsAt: Beginnt am
+  duration: Dauer
+  durationMin: $DURATION Minuten
+  incidentCompleted: Abgeschlossen
+  incidentScheduled: Geplant
+  duration24H: 24 h
+  duration7D: 7 Tage
+  duration30D: 30 Tage
+  duration1Y: 1 Jahr
+  durationAll: alles
+  locale: de-DE
